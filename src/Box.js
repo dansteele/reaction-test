@@ -1,0 +1,53 @@
+import React, { Component } from 'react';
+
+class Box extends Component {
+  static get defaultState() {
+    return {
+      started: false,
+      finished: false,
+      elapsedTime: 0
+    }
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = Box.defaultState;
+  }
+
+  handleClick() {
+    if (this.state.started) {
+      this.setState({
+        started: false,
+        finished: true,
+        elapsedTime: (new Date - this.startTime) / 1000
+      });
+    } else if (this.state.finished) {
+      this.setState(Box.defaultState); // Reset
+    } else {
+      this.startTime = new Date;
+      this.setState({
+        started: true,
+      });
+    }
+  }
+
+  render() {
+    let message;
+    if (this.state.started) {
+      message = 'Click!';
+    } else if (this.state.finished) {
+      message = 'Reset';
+    } else {
+      message = 'Ready...';
+    };
+    return (
+      <div className="Box"
+        onClick={() => this.handleClick()}>
+        <h1>{message}</h1>
+        <div>You took {this.state.elapsedTime}s</div>
+      </div>
+    );
+  }
+}
+
+export default Box;
