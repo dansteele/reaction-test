@@ -19,12 +19,12 @@ class Game extends Component {
       this.setState({
         started: false,
         finished: true,
-        elapsedTime: (new Date - this.startTime) / 1000
+        elapsedTime: (new Date() - this.startTime) / 1000
       });
     } else if (this.state.finished) {
       this.setState(Game.defaultState); // Reset
     } else {
-      this.startTime = new Date;
+      this.startTime = new Date();
       this.setState({
         started: true,
       });
