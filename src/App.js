@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Box from './Box';
+import Game from './Game';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Box
+        <Game
           active={ false }
         />
       </div>

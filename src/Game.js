@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Box extends Component {
+class Game extends Component {
   static get defaultState() {
     return {
       started: false,
@@ -11,7 +11,7 @@ class Box extends Component {
 
   constructor(props) {
     super(props);
-    this.state = Box.defaultState;
+    this.state = Game.defaultState;
   }
 
   handleClick() {
@@ -22,12 +22,22 @@ class Box extends Component {
         elapsedTime: (new Date - this.startTime) / 1000
       });
     } else if (this.state.finished) {
-      this.setState(Box.defaultState); // Reset
+      this.setState(Game.defaultState); // Reset
     } else {
       this.startTime = new Date;
       this.setState({
         started: true,
       });
+    }
+  }
+
+  get cssState() {
+    if (this.state.started) {
+      return 'active'
+    } else if (this.state.finished) {
+      return 'done'
+    } else {
+      return 'ready'
     }
   }
 
@@ -40,14 +50,17 @@ class Box extends Component {
     } else {
       message = 'Ready...';
     };
+
     return (
-      <div className="Box"
+      <div className={`game ${this.cssState}`}
         onClick={() => this.handleClick()}>
         <h1>{message}</h1>
-        <div>You took {this.state.elapsedTime}s</div>
+        {this.state.elapsedTime > 0 &&
+          <div>You took {this.state.elapsedTime}s</div>
+        }
       </div>
     );
   }
 }
 
-export default Box;
+export default Game;
